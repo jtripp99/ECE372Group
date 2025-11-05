@@ -1,5 +1,5 @@
 /*
-Group 7: Maitham Taleb, Jack Tripp, Jack Nettle, Joe.
+Group 7: Maitham Taleb, Jack Tripp, Jack Nettle, Joe, Chris Hampton.
 Date: 11/01/2025
 Course: Microprocessor organization
 Description: Main program file for changing speed and direction of a DC motor using
@@ -86,6 +86,7 @@ ISR(INT0_vect){
         state = debounce_release; // Transition to debounce_release state
     }
 }
+
 
 
 
