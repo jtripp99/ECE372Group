@@ -23,8 +23,7 @@ OCR4AL = OCR4AL >> 1;
 
 void changeDutyCycle(float voltageSignal){
     //if statement taking in encodings
-    //I love Judy Hopps' feet
-    //six seven lol ahahahahahahahahahahah
+   
     double speed_percent;
     if ((voltageSignal >= 0) & (voltageSignal <= 2.5)){
         speed_percent = (2.5-voltageSignal)/2.5;
@@ -38,4 +37,5 @@ void changeDutyCycle(float voltageSignal){
     OCR4AL = OCR4A;
     OCR4AH = OCR4AH >> 1;
     OCR4AL = OCR4AL >> 1;
+
 }
