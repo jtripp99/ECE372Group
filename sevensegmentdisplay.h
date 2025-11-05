@@ -4,6 +4,6 @@
 #include <avr/io.h>
 
 void init7Seg();
-void setNum(unsigned int num);
+void setNum(unsigned char num);
 
 #endif

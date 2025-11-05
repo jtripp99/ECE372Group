@@ -11,8 +11,9 @@ a switch and potentiometer.
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include "timer0.h"
-#include "timer1.h"
+#include "pwmtimer.h"
 #include "sevensegmentdisplay.h"
+#include <util/delay.h>
 #include "switch.h"
 #include "adc.h"
 #include "pwm.h"
@@ -42,28 +43,33 @@ int main() {
         result += (ADCH) << 8;
         //Voltage_k = k * (VHigh/# of levels)
         voltage = result * (4.586/1024.0); // 5 v from your kit reads~4.586
-
+        
     switch(state) {
         case wait_press:
+        changeDutyCycle(voltage);
             break;
         case debounce_press:
-            ms_delay(1); //Timer 0
+            delayMs(1); //Timer 0
             state = wait_release;
             break;
         case wait_release:
+            
             break;
         case debounce_release:
             //Turn off motor
-            
+            delayMs(1);
             //disable interrupts during countdown
             cli();
                                             
             //10s Countdown
-            for (int i=9; i>=0; i--) {
+            for (unsigned char i=9; i>=0; i--) {
                 //Display 'i' on seven segment
+                if (i==0){break;}
+                else{
                 setNum(i);  
+            }
                 //Wait 1s (Timer 1)
-                s_delay(1);
+                delay(1);
             }
 
             //enable interrupts
@@ -83,6 +89,7 @@ ISR(INT0_vect){
         state = debounce_press; // Transition to debounce_press state
     }
     else if(state == wait_release){
+        changeDutyCycle(2.5); //turns off motor -chris
         state = debounce_release; // Transition to debounce_release state
     }
 }

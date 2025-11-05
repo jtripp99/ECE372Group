@@ -90,7 +90,7 @@ void delayMs(unsigned int delay){
     TCCR0B &= ~((1<<CS00) | (1<<CS01) | (1<<CS02));
 }
 
-void delayS(unsigned int delay){
+void delayUs(unsigned int delay){
         //make sure counter starts from zero
     TCNT1 = 0;
     unsigned int counter = 0;

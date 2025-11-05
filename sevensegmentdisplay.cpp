@@ -8,7 +8,7 @@ void init7Seg() {
     PORTC |= 0x00; //set all pins to zero
 }
 
-void setNum(unsigned int num) {
+void setNum(unsigned char num) {
     //set correct pins on 7 seg display for each number
     switch (num) {
         case 0:
