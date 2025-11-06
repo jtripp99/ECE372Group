@@ -62,12 +62,14 @@ int main() {
             //10s Countdown
             for (unsigned char i=9; i>=0; i--) {
                 //Display 'i' on seven segment
-                if (i==0){break;}
-                else{
                 setNum(i);  
-            }
+                if (i==0){break;}
+
                 //Wait 1s (Timer 1)
-              s_delay(1);
+                s_delay(1);
+
+            }
+
             }
 
             //enable interrupts
@@ -91,6 +93,7 @@ ISR(INT0_vect){
         state = debounce_release; // Transition to debounce_release state
     }
 }
+
 
 
 
