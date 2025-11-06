@@ -1,6 +1,4 @@
 #include <Arduino.h>
-#include "pwmtimer.h"// use timer 4 for calculatons of variable freq
-
 
 void initPWM_Pins(){//table 17-2, we need fast PWM, mode 15 for variable frequency
 TCCR4A |= (1<<WGM40) | (1<<WGM41);
@@ -44,3 +42,4 @@ void changeDutyCycle(float voltageSignal){
    
 
 }
+
