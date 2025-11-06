@@ -7,7 +7,6 @@ a switch and potentiometer.
 */
 
 
-#include <Arduino.h>
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include "timer0.h"
@@ -92,6 +91,7 @@ ISR(INT0_vect){
         state = debounce_release; // Transition to debounce_release state
     }
 }
+
 
 
 
