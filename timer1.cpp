@@ -4,9 +4,9 @@
 
 void timer1_init() {
 
-TCCR1A |= (1 << WGM11); // CTC mode
+TCCR1A |= (1 << WGM12); // CTC mode
 
-TCCR1B |= (1 << CS12) | (1 << CS10); // prescaler 128
+TCCR1B |= (1 << CS12); // prescaler 256
 
 TCNT1 = 0; // initialize counter
 
@@ -24,4 +24,5 @@ while (counter < delay) { //while the counter is less than the delay
         TIFR1 |= (1 << OCF1A); // clear compare match flag
     }
   }
+
 }
