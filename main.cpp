@@ -1,5 +1,5 @@
 /*
-Group 7: Maitham Taleb, Jack Tripp, Jack Nettle, Joe, Chris Hampton.
+Group 7: Maitham Taleb, Jack Tripp, Jack Nettle, Joseph McLaughlin, Chris Hampton.
 Date: 11/01/2025
 Course: Microprocessor organization
 Description: Main program file for changing speed and direction of a DC motor using
@@ -31,7 +31,16 @@ volatile int delay_ms;
 
 int main() {
     sei(); // Enable global interrupts
-    //initial
+    initTimer0();
+    initTimer1();
+    initLED();
+    //initialize any other timers
+    initSwitchPD0();
+    turnOnLED();
+    turnOffLED();
+    //initialize adc
+    //initialize pwm
+    //initialize seven segment display
     unsigned int result = 0;
     float voltage = 0;
 
@@ -93,6 +102,7 @@ ISR(INT0_vect){
         state = debounce_release; // Transition to debounce_release state
     }
 }
+
 
 
 
