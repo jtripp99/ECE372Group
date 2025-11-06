@@ -11,9 +11,8 @@ a switch and potentiometer.
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include "timer0.h"
-#include "pwmtimer.h"
+#include "timer1.h"
 #include "sevensegmentdisplay.h"
-#include <util/delay.h>
 #include "switch.h"
 #include "adc.h"
 #include "pwm.h"
@@ -69,7 +68,7 @@ int main() {
                 setNum(i);  
             }
                 //Wait 1s (Timer 1)
-                delay(1);
+              s_delay(1);
             }
 
             //enable interrupts
@@ -93,6 +92,7 @@ ISR(INT0_vect){
         state = debounce_release; // Transition to debounce_release state
     }
 }
+
 
 
 
