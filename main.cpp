@@ -47,7 +47,7 @@ int main() {
         changeDutyCycle(voltage);
             break;
         case debounce_press:
-            delayMs(1); //Timer 0
+            ms_delay(1);//Timer 0
             state = wait_release;
             break;
         case wait_release:
@@ -55,7 +55,7 @@ int main() {
             break;
         case debounce_release:
             //Turn off motor
-            delayMs(1);
+            ms_delay(1);
             //disable interrupts during countdown
             cli();
                                             
@@ -91,6 +91,7 @@ ISR(INT0_vect){
         state = debounce_release; // Transition to debounce_release state
     }
 }
+
 
 
 
