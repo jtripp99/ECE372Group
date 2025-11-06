@@ -11,8 +11,8 @@ TCCR4B |= (1<<CS40);
 DDRH |= (1<<DDH5); //Set Pin 8 on board to output, which is OC4C, PORTH5, PWM}
 //OCR4C FOR DUTY CYCLE????????
 OCR4C=0;
-DDRC|=(1<<DDC6);
-DDRC|=(1<<DDC7);
+DDRE|=(1<<DDE4);
+DDRE|=(1<<DDE1);
 }
 
 /*void IncFrequency(unsigned int frequency){
@@ -29,17 +29,16 @@ void changeDutyCycle(float voltageSignal){
     double speed_percent;
     if ((voltageSignal >= 0) & (voltageSignal <= 2.5)){
         speed_percent = (2.5-voltageSignal)/2.5;
-        PORTC|=(1<<PORTC6);
-        PORTC&=~(1<<PORTC7);
+        PORTE|=(1<<PORTE1);
+        PORTE&=~(1<<PORTE4);
     }
      else if ((voltageSignal > 2.5) & (voltageSignal <= 5)) {
         speed_percent = (voltageSignal-2.5)/2.5;
-        PORTC&=~(1<<PORTC6);
-        PORTC|=(1<<PORTC7);
+        PORTE&=~(1<<PORTE1);
+        PORTE|=(1<<PORTE4);
     }
     //OCR4A is for Top 
     OCR4C = (1000) * speed_percent;
    
 
 }
-
