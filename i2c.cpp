@@ -1,4 +1,4 @@
-// Initialization for I2C and a function sendatai2c that sends data using I2C// Initialization for I2C and functions to send and receive data using I2C
+// Initialization for I2C and functions to send and receive data using I2C
 
 #include <avr/io.h>
 #include "i2c.h"
@@ -20,7 +20,9 @@ void initI2C()
   TWBR = 0xC6; 
   
   // Enable two wire interface
-  TWCR = (1 << TWEN); 
+  TWCR |= (1<<TWINT)|(1 << TWEN); 
+
+
 }
 
 
@@ -52,7 +54,6 @@ void StopI2C_Trans()
 }
 
 
-
 void Write(unsigned char data)
 {
     // Data Register equals data
@@ -67,7 +68,7 @@ void Write(unsigned char data)
 
 
 
-unsigned char Read_from(unsigned char SLA, unsigned char MEMADDRESS)
+void Read_from(unsigned char SLA, unsigned char MEMADDRESS)
 {
     unsigned char data;
 
@@ -87,8 +88,8 @@ unsigned char Read_from(unsigned char SLA, unsigned char MEMADDRESS)
     // Load SLA and Read bit (1)
     TWDR = (SLA << 1) | 0x01;
 
-    // Trigger action: clear TWINT and initiate enable
-    TWCR = (1<<TWINT)|(1<<TWEN);
+    // Trigger action: clear TWINT and initiate enable as well as ack
+    TWCR = (1<<TWINT)|(1<<TWEN)|(1<<TWEA);
 
     // Wait for completion
     while (!(TWCR & (1<<TWINT)));
@@ -105,7 +106,7 @@ unsigned char Read_from(unsigned char SLA, unsigned char MEMADDRESS)
     // Trigger action and stop condition
     StopI2C_Trans();
 
-    return data;
+    // return data;
 }
 
 
@@ -118,17 +119,14 @@ unsigned char Read_data()
 
 
 
-void sendDataI2C(unsigned char address, unsigned char data)
-{
-    // Start write transmission
-    StartI2C_Trans(address);
+// void sendDataI2C(unsigned char address, unsigned char data)
+// {
+//     // Start write transmission
+//     StartI2C_Trans(address);
 
-    // Send data byte
-    Write(data);
+//     // Send data byte
+//     Write(data);
 
-    // End transmission
-    StopI2C_Trans();
-}
-
-
-}
+//     // End transmission
+//     StopI2C_Trans();
+// }
