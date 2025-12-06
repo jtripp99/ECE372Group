@@ -22,18 +22,30 @@ soundstateType soundstate = wait_sound;
 
 int main(){
     sei(); // Enable global interrupts
+
+    //initializations and setting rtc time
     init_PB4();
     initI2C();
     rtc_init();
+
+    //set time to rtc - update based on current time
+    //proof of concept, can be updated to load the compile time to the rtc if necessary
+    rtc_setTime(12, 00, 00);
+
     initTimer1(); 
     initLCD();
+
+    //declare variables for rtc time
     int hour;
     int minute; 
     int second;
+
+    //baud rate
     Serial.begin(9600);
     
     while(1) {
 
+        //get rtc time
         rtc_getTime(&hour, &minute, &second);
 
         char buffer[17]; // LCD is 16 chars wide
