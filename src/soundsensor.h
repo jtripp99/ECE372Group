@@ -2,6 +2,7 @@
 #define SOUNDSENSOR_H
 
 
-void init_PB4();
+void init_PB1();
 
 #endif
+
