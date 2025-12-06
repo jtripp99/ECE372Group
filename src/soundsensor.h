@@ -1,6 +1,7 @@
-#ifndef soundsensor.h
-#define soundsensor.h
+#ifndef SOUNDSENSOR_H
+#define SOUNDSENSOR_H
 
-void init_PA0;
+
+void init_PB4();
 
 #endif
