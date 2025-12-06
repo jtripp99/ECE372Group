@@ -8,6 +8,7 @@
 #include "led.h"
 #include "soundsensor.h"
 #include "timer.h"
+#include "lcd.h"
 
 typedef enum button_states {
   wait_press, debounce_press, wait_release, debounce_release
@@ -22,16 +23,23 @@ soundstateType soundstate = wait_sound;
 int main(){
     sei(); // Enable global interrupts
     init_PB4();
-    Serial.begin(9600);
+    initI2C();
+    rtc_init();
+    initTimer1(); 
+    initLCD();
+    int* hour;
+    int* minute; 
+    int* second;
+    
     while(1) {
+        
+        rtc_getTime(hour, minute, second);
 
         // //printing value of sound sensor state machine
         // Serial.print("Sound Sensor State: ");
         // Serial.println((PINB &(1 << PINB4)) ? 1 : 0);
 
-        if (PINB &(1 << PINB4)) {
-            Serial.print("Sound Detected\n");
-        }
+
         switch(soundstate) {
             case wait_sound:
                 break;
@@ -48,16 +56,40 @@ int main(){
             break;
         }
 
+        switch(state) {
+            case wait_press:
+                break;
+            case debounce_press:
+                //ms_delay(1);//Timer 1
+                state = wait_release;
+                break;
+            case wait_release:
+                break;
+            case debounce_release:
+                //ms_delay(1);
+                state = wait_press;
+
+            break;
+        }
+
     }
     return 0;
 }
+
 ISR(PCINT0_vect){
     if(soundstate == wait_sound){
-        Serial.print("Sound Detected in ISR\n");
         soundstate = debounce_sound; // Transition to debounce_press state
     }
     else if(soundstate == wait_no_sound){
-        Serial.print("No Longer Detected\n");
         soundstate = debounce_no_sound; // Transition to debounce_release state
+    }
+}
+
+ISR(PCINT2_vect){
+    if(state == wait_press){
+        state = debounce_press; // Transition to debounce_release state
+    }
+    else if(state == wait_release){
+        state = debounce_release; // Transition to debounce_release state
     }
 }
