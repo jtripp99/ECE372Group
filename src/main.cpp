@@ -27,13 +27,25 @@ int main(){
     rtc_init();
     initTimer1(); 
     initLCD();
-    int* hour;
-    int* minute; 
-    int* second;
+    int hour;
+    int minute; 
+    int second;
+    Serial.begin(9600);
     
     while(1) {
-        
-        rtc_getTime(hour, minute, second);
+
+        rtc_getTime(&hour, &minute, &second);
+
+        char buffer[17]; // LCD is 16 chars wide
+
+        // Format “HH:MM:SS”
+        sprintf(buffer, "%02d:%02d:%02d", hour, minute, second);
+
+        moveCursor(0,0);       // line 1, position 0
+        writeString(buffer);
+
+        Serial.print("Time: ");
+        Serial.println(buffer); 
 
         // //printing value of sound sensor state machine
         // Serial.print("Sound Sensor State: ");
