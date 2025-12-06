@@ -1,11 +1,11 @@
 #include "soundsensor.h"
 #include <avr/io.h>
 
-void init_PA0{
-     DDRB &= ~(1<<DDB4); // I/P
-    PORTB |= (1<<PORTB4); //Pull Up Resistor
-
-     PCICR |= (1 << PCIE0); // enable PCINT 0 - 7
-    PCMSK0 |= (1 << PCINT4); // enable PCINT4
+void init_PB4(){
+    DDRB &= ~(1<<DDB1); // I/P
+    PORTB &= ~(1<<PORTB1); //possibly disable pull-up
+    PCICR |= (1 << PCIE0); // enable PCINT 0 - 7
+    PCMSK1 |= (1 << PCINT1); // enable PCINT4
 
 }
+
