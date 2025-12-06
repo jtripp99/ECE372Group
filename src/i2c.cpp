@@ -68,7 +68,7 @@ void Write(unsigned char data)
 
 
 
-void Read_from(unsigned char SLA, unsigned char MEMADDRESS)
+int8_t Read_from(unsigned char SLA, unsigned char MEMADDRESS)
 {
     unsigned char data;
 
@@ -106,7 +106,7 @@ void Read_from(unsigned char SLA, unsigned char MEMADDRESS)
     // Trigger action and stop condition
     StopI2C_Trans();
 
-    // return data;
+     return data;
 }
 
 
